@@ -45,17 +45,24 @@ class SingUpForm extends Model
      */
     public function signup()
     {
-        if (!$this->validate()) {
+        
+       /* if (!$this->validate()) {
             return null;
         }
+        */
         
         $user = new User();
+        
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->setPassword($this->password);
+        $user->setPassword("abc123");
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->status = 9;
+        $user->created_at = strtotime('today');
+        $user->updated_at = strtotime('today');
 
+       // echo "<pre>"; var_dump($user);echo "</pre>";die;
         return $user->save() && $this->sendEmail($user);
     }
 

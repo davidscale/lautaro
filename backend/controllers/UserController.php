@@ -69,14 +69,16 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new SingUpForm();
+        
 
-     /*   if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+       
+        if ($this->request->isPost) {
+            
+            if ($model->load($this->request->post())) {
+                
+                $model->signup();
             }
-        } else {
-            $model->loadDefaultValues();
-        }*/
+        } 
 
         return $this->render('create', [
             'model' => $model,
