@@ -11,11 +11,17 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'rbac' => [
+            'class' => 'yii2mod\rbac\Module',
+            //'layout' => 'left-menu',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -37,14 +43,36 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        'i18n' => [
+            'translations' => [
+                'yii2mod.rbac' => [
+
+                    'class' => 'yii\i18n\PhpMessageSource',
+
+                    'basePath' => '@common/messages',
+
+                    'sourceLanguage' => 'en-US',
+
+                ],
+            ],   
+        ],
+        'as access' => [
+            'class' => yii2mod\rbac\filters\AccessControl::class,
+            'allowActions' => [
+                //'site/login',
+                //'site/logout',
+                'site/*',
+                'user/*',
+                'rbac/*',
+            ]  
+         ], 
     ],
     'params' => $params,
 ];
