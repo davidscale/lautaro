@@ -73,6 +73,19 @@ return [
                 'rbac/*',
             ]  
          ], 
+         'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',  // ej. smtp.mandrillapp.com o smtp.gmail.com
+                'username' => 'arm.group.utn@gmail.com',
+                'password' => 'pmzaxjfrkoaxihbf',
+                'port' => '587', // El puerto 25 es un puerto común también
+                'encryption' => 'tls', // Es usado también a menudo, revise la configuración del servidor
+            ],
+        ],
     ],
     'params' => $params,
 ];

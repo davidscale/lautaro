@@ -69,9 +69,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new SingUpForm();
-        
-
-       
+      
         if ($this->request->isPost) {
             
             if ($model->load($this->request->post())) {

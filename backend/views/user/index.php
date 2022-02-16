@@ -40,7 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'verification_token',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, User $model, $key, $index, $column) {
+                'urlCreator' => function ($action, /*User*/ $model, $key, $index, $column) {
+
+                    // PORQUE? PREGUNTAR
+
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
