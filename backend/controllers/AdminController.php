@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\User;
-use common\models\UserSearch;
-use backend\models\SingUpForm;
+use app\models\Administrativos;
+use backend\models\Administrativo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * AdminController implements the CRUD actions for Administrativos model.
  */
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
      * @inheritDoc
@@ -23,20 +21,6 @@ class UserController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error','verificacion'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -48,13 +32,13 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Administrativos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new Administrativo();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -64,34 +48,34 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
-     * @param int $id
+     * Displays a single Administrativos model.
+     * @param int $Id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($Id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($Id),
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Administrativos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new SingUpForm();
-      
+        $model = new Administrativos();
+
         if ($this->request->isPost) {
-            
-            if ($model->load($this->request->post())) {
-                
-                $model->signup();
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'Id' => $model->Id]);
             }
-        } 
+        } else {
+            $model->loadDefaultValues();
+        }
 
         return $this->render('create', [
             'model' => $model,
@@ -99,18 +83,18 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Administrativos model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
+     * @param int $Id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($Id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($Id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'Id' => $model->Id]);
         }
 
         return $this->render('update', [
@@ -119,29 +103,29 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Administrativos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id
+     * @param int $Id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($Id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($Id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Administrativos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id
-     * @return User the loaded model
+     * @param int $Id ID
+     * @return Administrativos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($Id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = Administrativos::findOne(['Id' => $Id])) !== null) {
             return $model;
         }
 

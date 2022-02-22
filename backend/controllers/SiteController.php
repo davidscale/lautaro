@@ -105,14 +105,16 @@ class SiteController extends Controller
 
     public function actionVerificacion()
     {
-        
+        $this->layout='blank';
         $model = new SingUpForm();
        // var_dump($_POST["SingUpForm"] ["password"]);die;
         if($_GET['token'] && !isset($_POST["SingUpForm"]['password']))
         {
             $token = $_GET['token'];
-            $sql = "SELECT * from user where verification_token = $token AND user.status=9";
-            $data = User::findBySql($sql);
+            
+            $data = User::findOne(['verification_token' => $token, 'status'=>9]);
+            
+            
             if($data)
             {
                 return $this->render('verificacion', [
@@ -121,9 +123,9 @@ class SiteController extends Controller
             }
             else
             {
-                return $this->render('verificacion', [
-                    'model' => $model,
-                ]);
+
+
+                return $this->render('token_inv');
             }
         }
         else if($_POST["SingUpForm"] ["password"])

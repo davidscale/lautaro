@@ -28,14 +28,20 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        //'brandLabel' => Yii::$app->name,
+        'brandLabel' => "Unlz", 
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+    
+        ['label' => 'Usuarios', 'url' => ['/user']],
+        ['label' => 'Adminstrador', 'url' => ['/rbac']],
+        ['label' => 'Reportes', 'url' => ['/report']],
+        ['label' => 'ABM', 'url' => ['/admin']],
+        
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

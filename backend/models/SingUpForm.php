@@ -34,9 +34,10 @@ class SingUpForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['password, password2', 'required'],
-            ['password, password2', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['password, password2', 'match', 'pattern' => '/^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/'],
+            ['password', 'required'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'match', 'pattern' => '/^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/','message' => "minimo 8 caracteres,1 Mayuscula y sin espacios",],
+
             [
                 'password2', 'compare', 'compareAttribute' => 'password',
                 'message' => "Las contraseñas no coinciden",

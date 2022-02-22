@@ -62,17 +62,34 @@ return [
 
                 ],
             ],   
+        ],'db_guarani' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=170.210.104.126;port=5432;dbname=toba_3_3',
+            'username' => 'postgres',
+            'password' => 'unlz2020FCA',
+            'charset' => 'ISO-8859-1',
+            'schemaMap' => [
+                'pgsql' => [
+                    'class' => 'yii\db\pgsql\Schema',
+                    'defaultSchema' => 'negocio' //specify your schema here
+                ]
+            ], // PostgreSQL
+            'on afterOpen' => function ($event) {
+                $event->sender->createCommand("SET search_path TO negocio")->execute();
+            }
         ],
         'as access' => [
-            'class' => yii2mod\rbac\filters\AccessControl::class,
-            'allowActions' => [
-                //'site/login',
-                //'site/logout',
-                'site/*',
-                'user/*',
-                'rbac/*',
-            ]  
-         ], 
+        'class' => yii2mod\rbac\filters\AccessControl::class,
+        'allowActions' => [
+            //'site/login',
+            //'site/logout',
+           'rbac/*',
+           'site/*',
+           'user/*',
+           'admin*'
+        ]  
+     ], 
+     
          'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
@@ -87,5 +104,6 @@ return [
             ],
         ],
     ],
+    
     'params' => $params,
 ];
