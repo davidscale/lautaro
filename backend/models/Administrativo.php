@@ -78,7 +78,7 @@ class Administrativo extends Administrativos
             ->andFilterWhere(['ilike', 'Celular', $this->Celular])
             ->andFilterWhere(['ilike', 'Calle', $this->Calle])
             ->andFilterWhere(['ilike', 'Piso', $this->Piso])
-            ->andFilterWhere(['ilike', 'Dpto.', $this->Dpto.])
+            //->andFilterWhere(['ilike', 'Dpto.', $this->Dpto])
             ->andFilterWhere(['ilike', 'Estado', $this->Estado])
             ->andFilterWhere(['ilike', 'Motivo_de_baja', $this->Motivo_de_baja]);
 
